@@ -110,11 +110,24 @@ body {
   border-bottom: 2px solid var(--color-primary);
 }
 
+.header__top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
 .header__title {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
   margin-bottom: var(--spacing-1);
+}
+
+.header__month {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
 }
 
 .header__subtitle {
@@ -588,16 +601,6 @@ body {
   text-align: center;
 }
 
-/* ==========================================================================
-   Print Header
-   ========================================================================== */
-
-.print-header {
-  text-align: right;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-4);
-}
 
 /* ==========================================================================
    Utility Classes
@@ -618,7 +621,7 @@ body {
 @media print {
   @page {
     size: A4 landscape;
-    margin: 8mm;
+    margin: 5mm;
   }
 
   * {
@@ -627,7 +630,7 @@ body {
   }
 
   html {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   body {
@@ -646,20 +649,38 @@ body {
   }
 
   .print-only {
-    display: block !important;
+    display: inline-block !important;
   }
 
   .header {
-    margin-bottom: var(--spacing-2);
-    padding-bottom: var(--spacing-2);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #2563eb;
+  }
+
+  .header__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .header__title {
-    font-size: var(--font-size-xl);
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .header__month {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    padding: 4px 16px;
+    border-radius: 4px;
   }
 
   .header__subtitle {
-    font-size: var(--font-size-base);
+    font-size: 12px;
+    margin-top: 4px;
   }
 
   .table-wrapper {
@@ -668,24 +689,25 @@ body {
   }
 
   .schedule {
-    font-size: 10px;
+    font-size: 9px;
     width: 100%;
     table-layout: fixed;
   }
 
   .schedule__head {
-    background-color: var(--color-primary) !important;
+    background-color: #2563eb !important;
     color: white !important;
   }
 
   .schedule__th {
-    padding: 4px 2px;
-    font-size: 9px;
+    padding: 3px 2px;
+    font-size: 8px;
   }
 
   .schedule__td {
-    padding: 4px 2px;
-    font-size: 10px;
+    padding: 3px 2px;
+    font-size: 9px;
+    height: 24px;
   }
 
   .schedule__th--action,
@@ -693,30 +715,34 @@ body {
     display: none;
   }
 
+  .schedule__th--date { width: 45px; }
+  .schedule__th--day { width: 30px; }
+  .schedule__th--staff { width: 70px; }
+  .schedule__th--time { width: 50px; }
+  .schedule__th--check { width: 35px; }
+  .schedule__th--notes { width: auto; }
+  .schedule__th--remarks { width: auto; }
+
   .schedule__body tr.row--tuesday {
-    background-color: var(--color-tuesday) !important;
+    background-color: #dbeafe !important;
   }
 
   .schedule__body tr.row--friday {
-    background-color: var(--color-friday) !important;
+    background-color: #fef3c7 !important;
   }
 
   .schedule__input {
     border: none;
     background: transparent;
     padding: 0;
-    min-height: 1.5em;
-  }
-
-  .schedule__input:empty::before {
-    content: '_____________';
-    color: var(--color-text-light);
+    min-height: 1.2em;
+    font-size: 9px;
   }
 
   .schedule__checkbox-wrapper {
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--color-text);
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #1e293b;
     margin: 0 auto;
     background: white;
   }
@@ -726,8 +752,12 @@ body {
   }
 
   .footer {
-    margin-top: var(--spacing-4);
+    margin-top: 8px;
     page-break-inside: avoid;
+  }
+
+  .footer__note {
+    font-size: 8px;
   }
 
   .schedule__td--clinic {
@@ -736,6 +766,10 @@ body {
 
   .schedule__th--clinic {
     background-color: #059669 !important;
+  }
+
+  .spot-badge {
+    display: none;
   }
 }
 
