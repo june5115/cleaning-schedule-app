@@ -7,10 +7,101 @@
 // Constants
 // ==========================================================================
 
-const DAY_NAMES = ['日', '月', '火', '水', '木', '金', '土'];
-
 const STORAGE_KEY = 'cleaning-schedule-data';
 const SETTINGS_KEY = 'cleaning-schedule-settings';
+
+// ==========================================================================
+// i18n Translations
+// ==========================================================================
+
+const translations = {
+  ja: {
+    dayNames: ['日', '月', '火', '水', '木', '金', '土'],
+    title: '長井ビル４Ｆ　クリニック掃除',
+    subtitle: '清掃スケジュール表',
+    prevMonth: '前月',
+    nextMonth: '次月',
+    cleaningDays: '清掃曜日：',
+    daySun: '日', dayMon: '月', dayTue: '火', dayWed: '水', dayThu: '木', dayFri: '金', daySat: '土',
+    reset: 'リセット',
+    thisMonth: '今月に戻る',
+    print: '印刷',
+    scheduledDays: '今月の予定日：',
+    days: '日',
+    addDate: '日付を追加：',
+    add: '＋ 追加',
+    deleteHint: '※ 行の「×」ボタンで個別に削除できます',
+    date: '日付',
+    dayOfWeek: '曜日',
+    staffName: '担当者名',
+    entryTime: '入室時間',
+    exitTime: '退室時間',
+    cleaningAreas: '掃除箇所',
+    toilet: 'トイレ',
+    kitchen: '給湯室',
+    vacuum: '掃除機<br>掛け',
+    garbage: 'ゴミ<br>処理',
+    clinicCheck: 'クリニック<br>確認',
+    notes: '連絡事項',
+    remarks: '備考',
+    footerNote: '※ 本表は月初に印刷し、清掃完了後に各項目にチェックを入れてください。クリニック確認欄はクリニック側で記入してください。',
+    monthFormat: (year, month) => `${year}年${month}月`,
+    staffPlaceholder: '担当者名',
+    notesPlaceholder: '連絡事項',
+    remarksPlaceholder: '備考',
+    spotLabel: '(追加)',
+    confirmDelete: (date) => `${date} を削除しますか？`,
+    confirmReset: 'すべての設定とデータをリセットしますか？',
+    resetComplete: 'リセットしました',
+    selectDate: '追加する日付を選択してください',
+    alreadyAdded: 'この日付は既に追加されています',
+    alreadyIncluded: 'この日付は既に曜日設定で含まれています'
+  },
+  en: {
+    dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    title: 'Nagai Bldg 4F Clinic Cleaning',
+    subtitle: 'Cleaning Schedule',
+    prevMonth: 'Prev',
+    nextMonth: 'Next',
+    cleaningDays: 'Cleaning Days:',
+    daySun: 'Sun', dayMon: 'Mon', dayTue: 'Tue', dayWed: 'Wed', dayThu: 'Thu', dayFri: 'Fri', daySat: 'Sat',
+    reset: 'Reset',
+    thisMonth: 'This Month',
+    print: 'Print',
+    scheduledDays: 'Scheduled Days: ',
+    days: '',
+    addDate: 'Add Date:',
+    add: '+ Add',
+    deleteHint: '* Click "×" to delete individual rows',
+    date: 'Date',
+    dayOfWeek: 'Day',
+    staffName: 'Staff',
+    entryTime: 'Entry',
+    exitTime: 'Exit',
+    cleaningAreas: 'Cleaning Areas',
+    toilet: 'Toilet',
+    kitchen: 'Kitchen',
+    vacuum: 'Vacuum',
+    garbage: 'Trash',
+    clinicCheck: 'Clinic<br>Check',
+    notes: 'Notes',
+    remarks: 'Remarks',
+    footerNote: '* Print at the beginning of each month. Check each item after cleaning is complete. Clinic confirmation is to be filled in by the clinic.',
+    monthFormat: (year, month) => `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month - 1]} ${year}`,
+    staffPlaceholder: 'Staff Name',
+    notesPlaceholder: 'Notes',
+    remarksPlaceholder: 'Remarks',
+    spotLabel: '(Added)',
+    confirmDelete: (date) => `Delete ${date}?`,
+    confirmReset: 'Reset all settings and data?',
+    resetComplete: 'Reset complete',
+    selectDate: 'Please select a date to add',
+    alreadyAdded: 'This date is already added',
+    alreadyIncluded: 'This date is already included in the weekday settings'
+  }
+};
+
+let currentLang = 'ja';
 
 // ==========================================================================
 // State
@@ -46,6 +137,7 @@ const elements = {
   spotAddDate: document.getElementById('spot-add-date'),
   spotAddBtn: document.getElementById('spot-add-btn'),
   resetBtn: document.getElementById('reset-btn'),
+  langBtn: document.getElementById('lang-btn'),
 };
 
 // ==========================================================================
@@ -155,17 +247,64 @@ function loadSettings() {
       if (settings.spotDates && typeof settings.spotDates === 'object') {
         spotDates = settings.spotDates;
       }
+      if (settings.lang && (settings.lang === 'ja' || settings.lang === 'en')) {
+        currentLang = settings.lang;
+      }
     }
   } catch (e) {
     console.error('設定の読み込みに失敗しました:', e);
-    // エラー時はデフォルト値を使用
     selectedDays = [2, 5];
   }
   
-  // selectedDaysが空の場合はデフォルト値を設定
   if (!selectedDays || selectedDays.length === 0) {
     selectedDays = [2, 5];
   }
+}
+
+/**
+ * 翻訳を取得
+ */
+function t(key) {
+  return translations[currentLang][key] || translations['ja'][key] || key;
+}
+
+/**
+ * 曜日名を取得
+ */
+function getDayName(dayOfWeek) {
+  return translations[currentLang].dayNames[dayOfWeek];
+}
+
+/**
+ * 言語を切り替え
+ */
+function toggleLanguage() {
+  currentLang = currentLang === 'ja' ? 'en' : 'ja';
+  saveSettings();
+  applyTranslations();
+  updateMonthDisplay();
+  renderSchedule();
+}
+
+/**
+ * 翻訳を適用
+ */
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const translation = t(key);
+    if (translation) {
+      el.innerHTML = translation;
+    }
+  });
+  
+  // Update lang button text
+  if (elements.langBtn) {
+    elements.langBtn.textContent = currentLang === 'ja' ? 'EN / 日本語' : '日本語 / EN';
+  }
+  
+  // Update HTML lang attribute
+  document.documentElement.lang = currentLang === 'ja' ? 'ja' : 'en';
 }
 
 /**
@@ -173,7 +312,7 @@ function loadSettings() {
  */
 function saveSettings() {
   try {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ selectedDays, spotDates }));
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ selectedDays, spotDates, lang: currentLang }));
   } catch (e) {
     console.error('設定の保存に失敗しました:', e);
   }
@@ -236,7 +375,7 @@ function updateDayData(dateKey, field, value) {
 function updateMonthDisplay() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
-  const monthText = `${year}年${month}月`;
+  const monthText = translations[currentLang].monthFormat(year, month);
 
   elements.currentMonth.textContent = monthText;
   elements.printMonth.textContent = monthText;
@@ -321,22 +460,22 @@ function createScheduleRow(date, isSpot = false) {
   row.dataset.date = dateKey;
   row.dataset.isSpot = isSpot ? 'true' : 'false';
 
-  const spotBadge = isSpot ? '<span class="spot-badge">(追加)</span>' : '';
+  const spotBadge = isSpot ? `<span class="spot-badge">${t('spotLabel')}</span>` : '';
 
   row.innerHTML = `
     <td class="schedule__td schedule__td--action no-print">
-      <button type="button" class="btn--delete" data-action="delete" title="この日を削除">×</button>
+      <button type="button" class="btn--delete" data-action="delete" title="Delete">×</button>
     </td>
     <td class="schedule__td schedule__td--date">${formatDate(date)}${spotBadge}</td>
     <td class="schedule__td schedule__td--day ${getDayClass(dayOfWeek)}">
-      ${DAY_NAMES[dayOfWeek]}
+      ${getDayName(dayOfWeek)}
     </td>
     <td class="schedule__td">
       <input type="text" 
              class="schedule__input schedule__input--text" 
              data-field="staff" 
              value="${escapeHtml(data.staff)}" 
-             placeholder="担当者名">
+             placeholder="${t('staffPlaceholder')}">
     </td>
     <td class="schedule__td">
       <input type="time" 
@@ -395,14 +534,14 @@ function createScheduleRow(date, isSpot = false) {
              class="schedule__input schedule__input--text" 
              data-field="notes" 
              value="${escapeHtml(data.notes)}" 
-             placeholder="連絡事項">
+             placeholder="${t('notesPlaceholder')}">
     </td>
     <td class="schedule__td">
       <input type="text" 
              class="schedule__input schedule__input--text" 
              data-field="remarks" 
              value="${escapeHtml(data.remarks)}" 
-             placeholder="備考">
+             placeholder="${t('remarksPlaceholder')}">
     </td>
   `;
 
@@ -489,15 +628,17 @@ function handleInputChange(event) {
  * 設定をリセット
  */
 function resetSettings() {
-  if (confirm('すべての設定とデータをリセットしますか？')) {
+  if (confirm(t('confirmReset'))) {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(SETTINGS_KEY);
     selectedDays = [2, 5];
     spotDates = {};
     scheduleData = {};
+    currentLang = 'ja';
     updateDaySelectionUI();
+    applyTranslations();
     renderSchedule();
-    alert('リセットしました');
+    alert(t('resetComplete'));
   }
 }
 
@@ -521,7 +662,7 @@ function handleDaySelectionChange() {
 function addSpotDate() {
   const dateValue = elements.spotAddDate.value;
   if (!dateValue) {
-    alert('追加する日付を選択してください');
+    alert(t('selectDate'));
     return;
   }
 
@@ -532,21 +673,18 @@ function addSpotDate() {
     spotDates[monthKey] = { added: [], removed: [] };
   }
 
-  // 既に追加済みか確認
   if (spotDates[monthKey].added.includes(dateValue)) {
-    alert('この日付は既に追加されています');
+    alert(t('alreadyAdded'));
     return;
   }
 
-  // 削除リストにあれば削除（復元）
   const removedIndex = spotDates[monthKey].removed.indexOf(dateValue);
   if (removedIndex > -1) {
     spotDates[monthKey].removed.splice(removedIndex, 1);
   } else {
-    // 曜日ベースに含まれているか確認
     const date = new Date(year, month - 1, Number(dateValue.split('-')[2]));
     if (selectedDays.includes(date.getDay())) {
-      alert('この日付は既に曜日設定で含まれています');
+      alert(t('alreadyIncluded'));
       return;
     }
     spotDates[monthKey].added.push(dateValue);
@@ -600,7 +738,7 @@ function handleDeleteClick(event) {
   const dateKey = row.dataset.date;
   const isSpot = row.dataset.isSpot === 'true';
 
-  if (confirm(`${dateKey} を削除しますか？`)) {
+  if (confirm(translations[currentLang].confirmDelete(dateKey))) {
     removeDate(dateKey, isSpot);
   }
 }
@@ -639,6 +777,11 @@ function initEventListeners() {
   if (elements.resetBtn) {
     elements.resetBtn.addEventListener('click', resetSettings);
   }
+  
+  // 言語切り替えボタン
+  if (elements.langBtn) {
+    elements.langBtn.addEventListener('click', toggleLanguage);
+  }
 
   // テーブル入力（イベント委譲）
   elements.scheduleBody.addEventListener('input', handleInputChange);
@@ -672,6 +815,7 @@ function initEventListeners() {
 function init() {
   loadSettings();
   loadData();
+  applyTranslations();
   updateDaySelectionUI();
   updateMonthDisplay();
   renderSchedule();
