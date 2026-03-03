@@ -1,0 +1,759 @@
+/* ==========================================================================
+   Design Tokens
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-secondary: #64748b;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --color-bg: #f8fafc;
+  --color-bg-card: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-dark: #cbd5e1;
+
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+
+  --color-tuesday: #dbeafe;
+  --color-friday: #fef3c7;
+
+  /* Typography */
+  --font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+}
+
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-6);
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-4);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.header__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-1);
+}
+
+.header__subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Controls
+   ========================================================================== */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-4);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.controls__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.controls__month {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  min-width: 200px;
+  text-align: center;
+}
+
+.controls__actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.controls__days {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.controls__label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.controls__day-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  cursor: pointer;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.controls__day-option:hover {
+  background-color: var(--color-bg);
+}
+
+.controls__day-option input {
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn--outline {
+  background-color: transparent;
+  border-color: var(--color-border-dark);
+  color: var(--color-text);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-bg);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--nav {
+  background-color: var(--color-bg);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  padding: var(--spacing-2) var(--spacing-3);
+}
+
+.btn--nav:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* ==========================================================================
+   Schedule Info
+   ========================================================================== */
+
+.schedule-info {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+.schedule-info strong {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Spot Controls
+   ========================================================================== */
+
+.spot-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border-dark);
+}
+
+.spot-controls__add {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.spot-controls__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.spot-controls__input {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.spot-controls__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.spot-controls__hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+}
+
+.btn--sm {
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-xs);
+}
+
+/* ==========================================================================
+   Table
+   ========================================================================== */
+
+.table-wrapper {
+  overflow-x: auto;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.schedule {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.schedule__head {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.schedule__th {
+  padding: var(--spacing-3) var(--spacing-2);
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+.schedule__th--action {
+  width: 36px;
+  padding: var(--spacing-1);
+}
+
+.schedule__th--date {
+  width: 80px;
+}
+
+.schedule__th--day {
+  width: 50px;
+}
+
+.schedule__th--staff {
+  width: 120px;
+}
+
+.schedule__th--time {
+  width: 80px;
+}
+
+.schedule__th--check {
+  width: 60px;
+}
+
+.schedule__th--notes {
+  min-width: 150px;
+}
+
+.schedule__th--remarks {
+  min-width: 150px;
+}
+
+.schedule__th--clinic {
+  background-color: #059669;
+}
+
+.schedule__body tr {
+  transition: background-color var(--transition-fast);
+}
+
+.schedule__body tr:hover {
+  background-color: var(--color-bg);
+}
+
+.schedule__body tr.row--sunday {
+  background-color: #fee2e2;
+}
+
+.schedule__body tr.row--monday {
+  background-color: #fef3c7;
+}
+
+.schedule__body tr.row--tuesday {
+  background-color: var(--color-tuesday);
+}
+
+.schedule__body tr.row--wednesday {
+  background-color: #dcfce7;
+}
+
+.schedule__body tr.row--thursday {
+  background-color: #f3e8ff;
+}
+
+.schedule__body tr.row--friday {
+  background-color: var(--color-friday);
+}
+
+.schedule__body tr.row--saturday {
+  background-color: #e0f2fe;
+}
+
+.schedule__body tr.row--sunday:hover {
+  background-color: #fecaca;
+}
+
+.schedule__body tr.row--monday:hover {
+  background-color: #fde68a;
+}
+
+.schedule__body tr.row--tuesday:hover {
+  background-color: #bfdbfe;
+}
+
+.schedule__body tr.row--wednesday:hover {
+  background-color: #bbf7d0;
+}
+
+.schedule__body tr.row--thursday:hover {
+  background-color: #e9d5ff;
+}
+
+.schedule__body tr.row--friday:hover {
+  background-color: #fde68a;
+}
+
+.schedule__body tr.row--saturday:hover {
+  background-color: #bae6fd;
+}
+
+.schedule__td {
+  padding: var(--spacing-2);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.schedule__td--date {
+  font-weight: var(--font-weight-medium);
+}
+
+.schedule__td--day {
+  font-weight: var(--font-weight-medium);
+}
+
+.schedule__td--sunday {
+  color: #dc2626;
+}
+
+.schedule__td--tuesday {
+  color: var(--color-primary);
+}
+
+.schedule__td--friday {
+  color: var(--color-warning);
+}
+
+.schedule__td--saturday {
+  color: #0284c7;
+}
+
+.schedule__td--clinic {
+  background-color: #d1fae5;
+}
+
+.schedule__td--action {
+  padding: var(--spacing-1);
+}
+
+.btn--delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn--delete:hover {
+  color: white;
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.row--spot {
+  background-color: #fef9c3 !important;
+}
+
+.row--spot:hover {
+  background-color: #fef08a !important;
+}
+
+.spot-badge {
+  font-size: var(--font-size-xs);
+  color: var(--color-warning);
+  margin-left: var(--spacing-1);
+}
+
+/* Input Fields */
+.schedule__input {
+  width: 100%;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: white;
+  transition: border-color var(--transition-fast);
+}
+
+.schedule__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.schedule__input--time {
+  width: 90px;
+  text-align: center;
+}
+
+.schedule__input--text {
+  min-width: 120px;
+}
+
+/* Checkboxes */
+.schedule__checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule__checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-success);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.footer {
+  margin-top: var(--spacing-6);
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__note {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Print Header
+   ========================================================================== */
+
+.print-header {
+  text-align: right;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.print-only {
+  display: none;
+}
+
+.no-print {
+  display: flex;
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html {
+    font-size: 11px;
+  }
+
+  body {
+    background: white;
+    padding: 0;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .header {
+    margin-bottom: var(--spacing-2);
+    padding-bottom: var(--spacing-2);
+  }
+
+  .header__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .header__subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .table-wrapper {
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .schedule {
+    font-size: 10px;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .schedule__head {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+  }
+
+  .schedule__th {
+    padding: 4px 2px;
+    font-size: 9px;
+  }
+
+  .schedule__td {
+    padding: 4px 2px;
+    font-size: 10px;
+  }
+
+  .schedule__th--action,
+  .schedule__td--action {
+    display: none;
+  }
+
+  .schedule__body tr.row--tuesday {
+    background-color: var(--color-tuesday) !important;
+  }
+
+  .schedule__body tr.row--friday {
+    background-color: var(--color-friday) !important;
+  }
+
+  .schedule__input {
+    border: none;
+    background: transparent;
+    padding: 0;
+    min-height: 1.5em;
+  }
+
+  .schedule__input:empty::before {
+    content: '_____________';
+    color: var(--color-text-light);
+  }
+
+  .schedule__checkbox-wrapper {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--color-text);
+    margin: 0 auto;
+    background: white;
+  }
+
+  .schedule__checkbox {
+    display: none;
+  }
+
+  .footer {
+    margin-top: var(--spacing-4);
+    page-break-inside: avoid;
+  }
+
+  .schedule__td--clinic {
+    background-color: #d1fae5 !important;
+  }
+
+  .schedule__th--clinic {
+    background-color: #059669 !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-4);
+  }
+
+  .controls {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .controls__nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .controls__actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header__title {
+    font-size: var(--font-size-xl);
+  }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>長井ビル４Ｆ クリニック掃除 スケジュール表</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="header__title">長井ビル４Ｆ　クリニック掃除</h1>
+      <p class="header__subtitle">清掃スケジュール表</p>
+    </header>
+
+    <div class="print-header print-only">
+      <span id="print-month"></span>
+    </div>
+
+    <nav class="controls no-print">
+      <div class="controls__nav">
+        <button id="prev-month" class="btn btn--nav" aria-label="前月">◀ 前月</button>
+        <h2 id="current-month" class="controls__month"></h2>
+        <button id="next-month" class="btn btn--nav" aria-label="次月">次月 ▶</button>
+      </div>
+      <div class="controls__days">
+        <span class="controls__label">清掃曜日：</span>
+        <label class="controls__day-option">
+          <input type="checkbox" id="day-sun" value="0"> 日
+        </label>
+        <label class="controls__day-option">
+          <input type="checkbox" id="day-mon" value="1"> 月
+        </label>
+        <label class="controls__day-option">
+          <input type="checkbox" id="day-tue" value="2" checked> 火
+        </label>
+        <label class="controls__day-option">
+          <input type="checkbox" id="day-wed" value="3"> 水
+        </label>
+        <label class="controls__day-option">
+          <input type="checkbox" id="day-thu" value="4"> 木
+        </label>
+        <label class="controls__day-option">
+          <input type="checkbox" id="day-fri" value="5" checked> 金
+        </label>
+        <label class="controls__day-option">
+          <input type="checkbox" id="day-sat" value="6"> 土
+        </label>
+      </div>
+      <div class="controls__actions">
+        <button id="today-btn" class="btn btn--outline">今月に戻る</button>
+        <button id="print-btn" class="btn btn--primary">🖨 印刷</button>
+      </div>
+    </nav>
+
+    <p class="schedule-info no-print">
+      今月の予定日：<span id="day-count">0</span>日
+    </p>
+
+    <div class="spot-controls no-print">
+      <div class="spot-controls__add">
+        <label class="spot-controls__label">日付を追加：</label>
+        <input type="date" id="spot-add-date" class="spot-controls__input">
+        <button id="spot-add-btn" class="btn btn--outline btn--sm">＋ 追加</button>
+      </div>
+      <div class="spot-controls__info">
+        <span class="spot-controls__hint">※ 行の「×」ボタンで個別に削除できます</span>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="schedule">
+        <thead class="schedule__head">
+          <tr>
+            <th class="schedule__th schedule__th--action no-print" rowspan="2"></th>
+            <th class="schedule__th schedule__th--date" rowspan="2">日付</th>
+            <th class="schedule__th schedule__th--day" rowspan="2">曜日</th>
+            <th class="schedule__th schedule__th--staff" rowspan="2">担当者名</th>
+            <th class="schedule__th schedule__th--time" rowspan="2">入室時間</th>
+            <th class="schedule__th schedule__th--time" rowspan="2">退室時間</th>
+            <th class="schedule__th schedule__th--tasks" colspan="4">掃除箇所</th>
+            <th class="schedule__th schedule__th--notes" rowspan="2">連絡事項</th>
+            <th class="schedule__th schedule__th--remarks" rowspan="2">備考</th>
+          </tr>
+          <tr>
+            <th class="schedule__th schedule__th--check">トイレ</th>
+            <th class="schedule__th schedule__th--check">給湯室</th>
+            <th class="schedule__th schedule__th--check">掃除機<br>掛け</th>
+            <th class="schedule__th schedule__th--check">ゴミ<br>処理</th>
+            <th class="schedule__th schedule__th--check schedule__th--clinic">クリニック<br>確認</th>
+          </tr>
+        </thead>
+        <tbody id="schedule-body" class="schedule__body">
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="footer">
+      <p class="footer__note print-only">※ 本表は月初に印刷し、清掃完了後に各項目にチェックを入れてください。クリニック確認欄はクリニック側で記入してください。</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
