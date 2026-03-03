@@ -148,7 +148,7 @@ function loadSettings() {
     const saved = localStorage.getItem(SETTINGS_KEY);
     if (saved) {
       const settings = JSON.parse(saved);
-      if (settings.selectedDays && Array.isArray(settings.selectedDays)) {
+      if (settings.selectedDays && Array.isArray(settings.selectedDays) && settings.selectedDays.length > 0) {
         selectedDays = settings.selectedDays;
       }
       if (settings.spotDates && typeof settings.spotDates === 'object') {
@@ -157,6 +157,13 @@ function loadSettings() {
     }
   } catch (e) {
     console.error('設定の読み込みに失敗しました:', e);
+    // エラー時はデフォルト値を使用
+    selectedDays = [2, 5];
+  }
+  
+  // selectedDaysが空の場合はデフォルト値を設定
+  if (!selectedDays || selectedDays.length === 0) {
+    selectedDays = [2, 5];
   }
 }
 
