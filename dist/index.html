@@ -7,91 +7,92 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-VDQQT2dY.js"></script>
+  <script type="module" crossorigin src="/assets/index-D1qg6Xmr.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-hOgYTGD-.css">
 </head>
 <body>
   <div class="container">
     <header class="header">
       <div class="header__top">
-        <h1 class="header__title">長井ビル４Ｆ　クリニック掃除</h1>
+        <h1 class="header__title" data-i18n="title">長井ビル４Ｆ　クリニック掃除</h1>
         <p class="header__month print-only" id="print-month"></p>
       </div>
-      <p class="header__subtitle">清掃スケジュール表</p>
+      <p class="header__subtitle" data-i18n="subtitle">清掃スケジュール表</p>
     </header>
 
     <nav class="controls no-print">
       <div class="controls__nav">
-        <button id="prev-month" class="btn btn--nav" aria-label="前月">◀ 前月</button>
+        <button id="prev-month" class="btn btn--nav" aria-label="前月">◀ <span data-i18n="prevMonth">前月</span></button>
         <h2 id="current-month" class="controls__month"></h2>
-        <button id="next-month" class="btn btn--nav" aria-label="次月">次月 ▶</button>
+        <button id="next-month" class="btn btn--nav" aria-label="次月"><span data-i18n="nextMonth">次月</span> ▶</button>
       </div>
       <div class="controls__days">
-        <span class="controls__label">清掃曜日：</span>
+        <span class="controls__label" data-i18n="cleaningDays">清掃曜日：</span>
         <label class="controls__day-option">
-          <input type="checkbox" id="day-sun" value="0"> 日
+          <input type="checkbox" id="day-sun" value="0"> <span data-i18n="daySun">日</span>
         </label>
         <label class="controls__day-option">
-          <input type="checkbox" id="day-mon" value="1"> 月
+          <input type="checkbox" id="day-mon" value="1"> <span data-i18n="dayMon">月</span>
         </label>
         <label class="controls__day-option">
-          <input type="checkbox" id="day-tue" value="2" checked> 火
+          <input type="checkbox" id="day-tue" value="2" checked> <span data-i18n="dayTue">火</span>
         </label>
         <label class="controls__day-option">
-          <input type="checkbox" id="day-wed" value="3"> 水
+          <input type="checkbox" id="day-wed" value="3"> <span data-i18n="dayWed">水</span>
         </label>
         <label class="controls__day-option">
-          <input type="checkbox" id="day-thu" value="4"> 木
+          <input type="checkbox" id="day-thu" value="4"> <span data-i18n="dayThu">木</span>
         </label>
         <label class="controls__day-option">
-          <input type="checkbox" id="day-fri" value="5" checked> 金
+          <input type="checkbox" id="day-fri" value="5" checked> <span data-i18n="dayFri">金</span>
         </label>
         <label class="controls__day-option">
-          <input type="checkbox" id="day-sat" value="6"> 土
+          <input type="checkbox" id="day-sat" value="6"> <span data-i18n="daySat">土</span>
         </label>
       </div>
       <div class="controls__actions">
-        <button id="reset-btn" class="btn btn--outline btn--danger" title="設定をリセット">リセット</button>
-        <button id="today-btn" class="btn btn--outline">今月に戻る</button>
-        <button id="print-btn" class="btn btn--primary">🖨 印刷</button>
+        <button id="lang-btn" class="btn btn--outline">EN / 日本語</button>
+        <button id="reset-btn" class="btn btn--outline btn--danger" data-i18n="reset">リセット</button>
+        <button id="today-btn" class="btn btn--outline" data-i18n="thisMonth">今月に戻る</button>
+        <button id="print-btn" class="btn btn--primary">🖨 <span data-i18n="print">印刷</span></button>
       </div>
     </nav>
 
     <p class="schedule-info no-print">
-      今月の予定日：<span id="day-count">0</span>日
+      <span data-i18n="scheduledDays">今月の予定日：</span><span id="day-count">0</span><span data-i18n="days">日</span>
     </p>
 
     <div class="spot-controls no-print">
       <div class="spot-controls__add">
-        <label class="spot-controls__label">日付を追加：</label>
+        <label class="spot-controls__label" data-i18n="addDate">日付を追加：</label>
         <input type="date" id="spot-add-date" class="spot-controls__input">
-        <button id="spot-add-btn" class="btn btn--outline btn--sm">＋ 追加</button>
+        <button id="spot-add-btn" class="btn btn--outline btn--sm" data-i18n="add">＋ 追加</button>
       </div>
       <div class="spot-controls__info">
-        <span class="spot-controls__hint">※ 行の「×」ボタンで個別に削除できます</span>
+        <span class="spot-controls__hint" data-i18n="deleteHint">※ 行の「×」ボタンで個別に削除できます</span>
       </div>
     </div>
 
     <div class="table-wrapper">
       <table class="schedule">
-        <thead class="schedule__head">
+        <thead class="schedule__head" id="schedule-head">
           <tr>
             <th class="schedule__th schedule__th--action no-print" rowspan="2"></th>
-            <th class="schedule__th schedule__th--date" rowspan="2">日付</th>
-            <th class="schedule__th schedule__th--day" rowspan="2">曜日</th>
-            <th class="schedule__th schedule__th--staff" rowspan="2">担当者名</th>
-            <th class="schedule__th schedule__th--time" rowspan="2">入室時間</th>
-            <th class="schedule__th schedule__th--time" rowspan="2">退室時間</th>
-            <th class="schedule__th schedule__th--tasks" colspan="4">掃除箇所</th>
-            <th class="schedule__th schedule__th--notes" rowspan="2">連絡事項</th>
-            <th class="schedule__th schedule__th--remarks" rowspan="2">備考</th>
+            <th class="schedule__th schedule__th--date" rowspan="2" data-i18n="date">日付</th>
+            <th class="schedule__th schedule__th--day" rowspan="2" data-i18n="dayOfWeek">曜日</th>
+            <th class="schedule__th schedule__th--staff" rowspan="2" data-i18n="staffName">担当者名</th>
+            <th class="schedule__th schedule__th--time" rowspan="2" data-i18n="entryTime">入室時間</th>
+            <th class="schedule__th schedule__th--time" rowspan="2" data-i18n="exitTime">退室時間</th>
+            <th class="schedule__th schedule__th--tasks" colspan="5" data-i18n="cleaningAreas">掃除箇所</th>
+            <th class="schedule__th schedule__th--notes" rowspan="2" data-i18n="notes">連絡事項</th>
+            <th class="schedule__th schedule__th--remarks" rowspan="2" data-i18n="remarks">備考</th>
           </tr>
           <tr>
-            <th class="schedule__th schedule__th--check">トイレ</th>
-            <th class="schedule__th schedule__th--check">給湯室</th>
-            <th class="schedule__th schedule__th--check">掃除機<br>掛け</th>
-            <th class="schedule__th schedule__th--check">ゴミ<br>処理</th>
-            <th class="schedule__th schedule__th--check schedule__th--clinic">クリニック<br>確認</th>
+            <th class="schedule__th schedule__th--check" data-i18n="toilet">トイレ</th>
+            <th class="schedule__th schedule__th--check" data-i18n="kitchen">給湯室</th>
+            <th class="schedule__th schedule__th--check" data-i18n="vacuum">掃除機<br>掛け</th>
+            <th class="schedule__th schedule__th--check" data-i18n="garbage">ゴミ<br>処理</th>
+            <th class="schedule__th schedule__th--check schedule__th--clinic" data-i18n="clinicCheck">クリニック<br>確認</th>
           </tr>
         </thead>
         <tbody id="schedule-body" class="schedule__body">
@@ -100,7 +101,7 @@
     </div>
 
     <footer class="footer">
-      <p class="footer__note print-only">※ 本表は月初に印刷し、清掃完了後に各項目にチェックを入れてください。クリニック確認欄はクリニック側で記入してください。</p>
+      <p class="footer__note print-only" data-i18n="footerNote">※ 本表は月初に印刷し、清掃完了後に各項目にチェックを入れてください。クリニック確認欄はクリニック側で記入してください。</p>
     </footer>
   </div>
 
