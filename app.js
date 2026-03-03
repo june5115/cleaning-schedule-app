@@ -45,6 +45,7 @@ const elements = {
   },
   spotAddDate: document.getElementById('spot-add-date'),
   spotAddBtn: document.getElementById('spot-add-btn'),
+  resetBtn: document.getElementById('reset-btn'),
 };
 
 // ==========================================================================
@@ -485,6 +486,22 @@ function handleInputChange(event) {
 // ==========================================================================
 
 /**
+ * 設定をリセット
+ */
+function resetSettings() {
+  if (confirm('すべての設定とデータをリセットしますか？')) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(SETTINGS_KEY);
+    selectedDays = [2, 5];
+    spotDates = {};
+    scheduleData = {};
+    updateDaySelectionUI();
+    renderSchedule();
+    alert('リセットしました');
+  }
+}
+
+/**
  * 曜日選択の変更ハンドラ
  */
 function handleDaySelectionChange() {
@@ -616,6 +633,11 @@ function initEventListeners() {
   // スポット日付追加
   if (elements.spotAddBtn) {
     elements.spotAddBtn.addEventListener('click', addSpotDate);
+  }
+  
+  // リセットボタン
+  if (elements.resetBtn) {
+    elements.resetBtn.addEventListener('click', resetSettings);
   }
 
   // テーブル入力（イベント委譲）

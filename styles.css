@@ -315,6 +315,16 @@ body {
   font-size: var(--font-size-xs);
 }
 
+.btn--danger {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.btn--danger:hover {
+  background-color: var(--color-danger);
+  color: white;
+}
+
 /* ==========================================================================
    Table
    ========================================================================== */
